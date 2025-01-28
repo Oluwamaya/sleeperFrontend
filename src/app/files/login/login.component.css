@@ -1,0 +1,22 @@
+main {
+    max-width: 400px;
+    margin: auto;
+  }
+  
+  button {
+   
+  }
+  
+ 
+  
+  
+  
+  button.border-b-2 {
+    border-color: transparent;
+  }
+  
+  button.border-b-2.border-white {
+    border-color: white;
+  }
+  
+  
