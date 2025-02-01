@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterLink, RouterModule, RouterOutlet } from '@angular/router';
 import {
   FormBuilder,
   FormGroup,
@@ -8,23 +8,24 @@ import {
   ReactiveFormsModule,
   AbstractControl,
 } from '@angular/forms';
+import { HttpClient, HttpClientModule   } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   templateUrl: './login.component.html',
-  imports: [CommonModule, RouterModule, ReactiveFormsModule ],
+  imports: [CommonModule, RouterModule,RouterLink, ReactiveFormsModule, HttpClientModule],
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
   isEmailLogin = true; // Toggles between Email and Phone Login
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private http: HttpClient , private route : Router) {
     this.loginForm = this.fb.group(
       {
         email: ['', [Validators.email]], // Initially no Validators.required
-        phone: ['', [Validators.maxLength(12)]], // Initially no Validators.required
+        number: ['', [Validators.maxLength(12)]], // Initially no Validators.required
         password: ['', Validators.required],
       },
       { validators: this.validateInputType.bind(this) } // Bind the custom validator
@@ -36,30 +37,58 @@ export class LoginComponent {
     return this.loginForm.controls;
   }
 
-  toggleInput(type: 'email' | 'phone') {
+  toggleInput(type: 'email' | 'number') {
     this.isEmailLogin = type === 'email';
     this.loginForm.updateValueAndValidity(); // Trigger validation update
   }
 
+  onReferralCodeInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    // Allow only numbers by stripping out anything that's not a number
+    input.value = input.value.replace(/\D/g, '');
+  }
+
   submit() {
     if (this.loginForm.valid) {
-      const formData = this.loginForm.value;
-      console.log(formData);
+      const value = this.loginForm.value;
+      console.log(value);
+      if (value.email !== '' && value.number !== '') {
+        console.log(value.email, value.number);
+
+        alert(
+          'Login requires either an email or a Phone number, but not both.'
+        );
+        return;
+      }
+
+      this.http.post<any>('http://localhost:3210/login  ', value).subscribe(
+        (res) => {
+          console.log(res);
+          alert(res.message);
+          localStorage.setItem('token', res.token);
+
+          this.route.navigate(["/dashboard"])
+        },
+        (error) => {
+          console.log(error);
+          alert(error.error);
+        }
+      );
     } else {
       this.loginForm.markAllAsTouched();
       console.log('Form is invalid');
     }
   }
 
-  // Custom Validator: Ensure only the active input type (email or phone) is required
+  // Custom Validator: Ensure only the active input type (email or number) is required
   validateInputType(control: AbstractControl) {
     const email = control.get('email')?.value;
-    const phone = control.get('phone')?.value;
+    const number = control.get('number')?.value;
 
     if (this.isEmailLogin && !email) {
       return { emailRequired: true };
     }
-    if (!this.isEmailLogin && !phone) {
+    if (!this.isEmailLogin && !number) {
       return { phoneRequired: true };
     }
     return null; // No validation errors

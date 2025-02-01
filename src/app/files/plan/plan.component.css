@@ -1,0 +1,11 @@
+.mood{
+    background-image: linear-gradient(to left, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../../../assets/btc.webp");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: fit-content;
+    width: 100%;
+    border-radius: 10px;
+    color: white;
+    
+}

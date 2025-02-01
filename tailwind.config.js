@@ -10,7 +10,7 @@ module.exports = {
     require('daisyui'), // DaisyUI plugin
   ],
   daisyui: {
-    themes: ["light", "dark", "cupcake"], // Specify themes here.
+    themes: ["light"], // Specify themes here.
   },
 }
 

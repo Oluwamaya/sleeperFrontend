@@ -5,4 +5,18 @@
 *{
     cursor: pointer;
     /* font-family: sans-serif; */
+    
+}
+
+.iconify {
+    background-color: transparent;
+    border: 1px solid white;
+    /* color: white !important; */
+    padding: 6px;
+    border-radius: 100%;
+    font-size: 2rem; /* Adjust this size based on the icon's desired size */
+    display: inline-flex; /* Ensure the icon is inline and centers properly */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
