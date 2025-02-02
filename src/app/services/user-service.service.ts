@@ -9,6 +9,7 @@ interface User {
   totalBalance: number | 0;
   rechargeBalance: number | 0;
   referral: number;
+  plan : string
 }
 
 @Injectable({
@@ -36,11 +37,16 @@ export class UserService {
     localStorage.setItem('user', JSON.stringify(user));  // Save user data to localStorage
   }
 
-  // Method to clear user data (for logout)
-  clearUser(): void {
-    this.userSubject.next(null);  // Clear the user data
-    localStorage.removeItem('user');  // Optionally remove from localStorage
+  clearUser(): boolean {
+    try {
+      localStorage.clear(); // or localStorage.clear();
+      return true; // Indicate success
+    } catch (error) {
+      console.error("Error clearing user data:", error);
+      return false; // Indicate failure
+    }
   }
+  
 
   // Method to fetch user data (can be used when verifying or updating user info)
   getUser(): User | null {

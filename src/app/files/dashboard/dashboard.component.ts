@@ -4,6 +4,7 @@ import { Router, RouterModule } from '@angular/router';
 import { UserService } from '../../services/user-service.service';  // Adjust the path to your service
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NavbarComponent } from "../navbar/navbar.component";
 
 interface User {
   id : any ;
@@ -18,7 +19,7 @@ interface User {
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [HttpClientModule , RouterModule ,CommonModule , ReactiveFormsModule],
+  imports: [HttpClientModule, RouterModule, CommonModule, ReactiveFormsModule, NavbarComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
@@ -28,11 +29,12 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     const token = localStorage.getItem('token');
-    console.log('Retrieved Token:', token);
+    // console.log('Retrieved Token:', token);
 
     if (token) {
       this.verifyToken(token);
     } else {
+      alert("Kindly login again to continue")
       this.route.navigate(['/login']); // If no token is present, redirect to login
     }
   }
@@ -71,8 +73,5 @@ export class DashboardComponent implements OnInit {
 
 
   // This can be used for logging out and clearing user data
-  logout(): void {
-    this.userService.clearUser();
-    this.route.navigate(['/login']);
-  }
+ 
 }

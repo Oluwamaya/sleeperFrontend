@@ -1,16 +1,7 @@
 <section class="font-mono px-2">
 
     <nav>
-        <main class="fixed z-10 top-0 start-0 end-0 bg-black text-white p-3 flex items-center justify-between">
-            <div class="flex items-center " >
-                <img src="assets/swiftEarn.png" class="h-[50px] w-[40px]" alt="logo" srcset="">
-                <p class="text-xl font-bold">SwiftEarn</p>
-            </div>
-            <div class="space-x-2">
-                <span class="iconify" data-icon="mingcute:notification-fill"></span>
-                <span class="iconify" data-icon="ri:customer-service-fill"></span>
-            </div>
-        </main>
+      <app-navbar/>
 
         <main class="flex space-x-4 items-center justify-between fixed bottom-0 start-0 end-0 py-4 px-6 text-gray-500 bg-black font-sans">
             <div routerLink="/dashboard" class="flex flex-col items-center justify-center   ">
@@ -44,7 +35,7 @@
     <main class="card my-4 font-mono space-y-3 p-3 mt-[80px]">
         <div class="flex justify-between items-center ">
           <h5 class="font-medium text-2xl">{{user.username}}</h5>
-          <h5 class="font-medium text-2xl">Active Plan</h5>
+          <h5 class="font-medium text-2xl">{{user.plan}}</h5>
         </div>
 
         <div class="mx-auto flex items-center flex-col space-y-3">
@@ -84,7 +75,7 @@
             <span class="iconify" data-icon="ph:password"></span>
             <p>Change Password</p>
         </div><hr class="text-gray-600">
-        <div class="flex items-center space-x-2">
+        <div class="flex items-center space-x-2" (click)="logout()">
             <span class="iconify" data-icon="uit:signout"></span>
             <p>Sign Out</p>
         </div><hr class="text-gray-600">

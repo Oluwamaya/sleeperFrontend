@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { UserService } from '../../services/user-service.service';
+import { NavbarComponent } from "../navbar/navbar.component";
 
 @Component({
   selector: 'app-team',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, NavbarComponent],
   templateUrl: './team.component.html',
   styleUrl: './team.component.css'
 })

@@ -1,1 +1,74 @@
-<p>navbar works!</p>
+<main class="fixed z-10 top-0 start-0 end-0 bg-black text-white p-3 flex items-center justify-between">
+    <div class="flex items-center">
+        <img src="assets/swiftEarn.png" class="h-[50px] w-[40px]" alt="logo">
+        <p class="text-xl font-bold">SwiftEarn</p>
+    </div>
+    <div class="flex items-center space-x-2">
+        <div class="border border-white rounded-full">
+            
+            <span class="iconify" data-icon="mingcute:notification-fill"></span>
+        </div>
+        <div class="border border-white rounded-full" (click)="toggleCustomerService()" >
+            <span class="iconify" data-icon="ri:customer-service-fill"></span>
+        </div>
+        
+    </div>
+    
+
+</main>
+
+<!-- Customer Service Panel -->
+<main 
+    class="fixed bg-gray-600 text-white p-4 bottom-0 right-0 left-0 h-[50%] shadow-lg rounded-t-2xl space-y-4 transition-all duration-500 transform z-10"
+    id="customerServicePanel"
+    *ngIf="isCustomerServiceVisible" >
+
+    <div class="mx-auto text-center">
+       <h4 class="font-bold text-xl">Online Service</h4>
+       <p class="text-gray-300 text-sm ">Choose your preferred online customer service contact method</p>
+    </div>
+    
+    <div class="flex items-center space-x-2">
+        <a href="https://t.me/yourTelegramSupport" target="_blank" class="flex items-center space-x-2">
+          <p class="bg-blue-500 text-white rounded-lg outline">
+            <span class="iconify" data-icon="lineicons:telegram"></span>
+          </p>
+          <p>Chat with our Telegram Support Team</p>
+        </a>
+      </div>
+      <hr>
+      
+      <div class="flex items-center space-x-2">
+        <a href="https://t.me/yourTelegramChannel" target="_blank" class="flex items-center space-x-2">
+          <p class="bg-blue-500 text-white rounded-lg outline">
+            <span class="iconify" data-icon="lineicons:telegram"></span>
+          </p>
+          <p>Join Our Official Telegram Community</p>
+        </a>
+      </div>
+      <hr>
+      
+      <div class="flex items-center space-x-2">
+        <a href="https://wa.me/1234567890" target="_blank" class="flex items-center space-x-2">
+          <p class="bg-green-500 rounded-lg outline">
+            <span class="iconify" data-icon="logos:whatsapp-icon"></span>
+          </p>
+          <p>Get Instant Support on WhatsApp</p>
+        </a>
+      </div>
+      <hr>
+      
+      <div class="flex items-center space-x-2">
+        <a href="https://chat.whatsapp.com/yourGroupID" target="_blank" class="flex items-center space-x-2">
+          <p class="bg-green-500 rounded-lg outline">
+            <span class="iconify" data-icon="logos:whatsapp-icon"></span>
+          </p>
+          <p>Join Our Exclusive WhatsApp Group</p>
+        </a>
+      </div>
+      <hr>
+      <div class="flex items-center justify-center">
+        <img src="assets/swiftEarn.png" class="h-[50px] w-[40px]" alt="logo">
+        <p class="text-xl font-bold">SwiftEarn</p>
+    </div>
+</main>
