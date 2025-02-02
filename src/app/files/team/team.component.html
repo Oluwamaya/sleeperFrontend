@@ -41,22 +41,22 @@
     </nav>
 
     <section class="mt-[70px]">
-        <main class="flex flex-col items-center p-2 bg-gray-100 m">
-            <div>
+        <main class="flex flex-col items-center p-3 bg-gray-200 ">
+            <div class="my-2">
                 <h6 class="font-bold text-2xl">Earn as you refer</h6>
-                <p class="text-base ">Refer a friend to SwiftEarn and earn extra rewards when they subscribe to a plan!</p>
+                <p class="text-sm ">Refer a friend to SwiftEarn and earn extra rewards when they subscribe to a plan!</p>
             </div>
             <!-- Invitation Code Section -->
-             <main class="bg-white p-4 rounded-lg shadow-md w-full max-w-md text-center">
+             <main class="bg-white w-full space-y-2 p-2 rounded-lg shadow-md  text-center">
 
-                 <div class=" flex justify-around items-center rounded-lg  w-full max-w-md text-center">
-                    <div class="bg-gray-900 text-white p-2 shadow-md" >
+                 <div class="mx-auto flex justify-center space-x-2 items-center rounded-lg  w-full max-w-md text-center">
+                    <div class="bg-gray-200  rounded-md text-black p-1 shadow-md" >
 
                         <small class=" font-medium">Invitation Code</small>
-                        <h3 class="text-2xl font-bold  mt-1">{{ user.referral }}</h3>
+                        <h3 class="text-2xl font-bold ">{{ user.referral }}</h3>
                     </div>
                      <button 
-                class="mt-2 bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition" 
+                class="mt-2 bg-black  text-white px-3 py-1 rounded-2xl hover:bg-gray-700 transition" 
                 (click)="copyToClipboard(user.referral, 'Referral code copied!')"
               >
                 Copy
@@ -64,25 +64,82 @@
             </div>
             
             <!-- Referral Link Section -->
-            <div class="bg-white p-4 rounded-lg shadow-md w-full  text-center mt-6">
+            <div class="bg-white p-2 rounded-lg  w-full  text-center ">
                 <small class="text-gray-600 font-medium">Share your referral link and start earning</small>
-                <div class="mt-2 flex  items-center w-100 overflow-hidden">
+                <div class="p-2 justify-center flex  space-x-2 items-center w-100 ">
                     
-                    <p class="bg-gray-200 text-gray-700 p-2 rounded-lg w-8/12 text-center">
+                    <p class="bg-gray-200 text-gray-700 p-2 rounded-lg w-8/12 text-center truncate overflow-hidden">
                         http://localhost:4200/signup/{{ user.referral }}
                     </p>
-                    <button 
-                    class="mt-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-500 transition" 
-                    (click)="copyToClipboard('http://localhost:4200/signup/' + user.referral, 'Referral link copied!')"
-                    >
-                    Copy
-                </button>
+                    <p>
+
+                        <button 
+                        class=" bg-black text-white px-3 py-1 rounded-2xl  transition  text-center" 
+                        (click)="copyToClipboard('http://localhost:4200/signup/' + user.referral, 'Referral link copied!')"
+                        >
+                        Copy
+                    </button>
+                </p>
             </div>
         </div>
     </main>
           </main>
+          <main class="mx-auto flex  justify-around  bg-gray-200 p-2 w-full    my-3">
           
+            <div class="text-center">
+                <div class="text-center">
+                  <p class="text-base font-bold">Register/Valid</p>
+                  <p class="text-base font-medium">0/0</p>
+                </div>
+
+
+                <div class="text-center">
+                    <p class="text-base font-bold">Total Income</p>
+                    <p class="text-base font-medium">5.4</p>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <p class="text-base font-bold">Commission Discount</p>
+                <p class="text-base font-medium">12%</p>
+            </div>
+        </main>
+         
 
     </section>
+
+    <main class="p-6 bg-gray-100 min-h-screen">
+        <div class="mb-4">
+            <h4 class="text-xl font-semibold text-gray-800">My Referrals</h4>
+        </div>
+    
+        <div class="overflow-x-auto bg-white shadow-md rounded-lg">
+            <table class="w-full border-collapse">
+                <thead class="bg-gray-600 text-white">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-sm font-medium uppercase">S/N</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium uppercase">Names</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium uppercase">Level</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium uppercase">Date</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    <tr class="hover:bg-gray-100">
+                        <td class="px-6 py-4 text-gray-800">1</td>
+                        <td class="px-6 py-4 text-gray-800">John Doe</td>
+                        <td class="px-6 py-4 text-gray-800">Silver</td>
+                        <td class="px-6 py-4 text-gray-800">2024-01-30</td>
+                    </tr>
+                    <tr class="hover:bg-gray-100">
+                        <td class="px-6 py-4 text-gray-800">2</td>
+                        <td class="px-6 py-4 text-gray-800">Jane Smith</td>
+                        <td class="px-6 py-4 text-gray-800">Gold</td>
+                        <td class="px-6 py-4 text-gray-800">2024-02-01</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    
 
 </section>
