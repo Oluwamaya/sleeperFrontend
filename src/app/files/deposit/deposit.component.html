@@ -1,0 +1,59 @@
+<section class="bg-gray-900 min-h-screen flex flex-col items-center justify-center py-10">
+    <main class="flex flex-col items-center justify-center space-y-12 w-full max-w-lg mx-auto text-white">
+      <!-- Header Section -->
+      <div class="flex items-center space-x-3">
+        <img src="assets/tetherUsdt.png" alt="USDT Logo" class="h-14 w-14 rounded-full border-2 border-white">
+        <p class="font-semibold text-2xl text-gray-100">BEP20-USDT</p>
+      </div>
+    
+      <!-- QR Code Section -->
+      <div *ngIf="qrCodeUrl" class="flex flex-col items-center space-y-4">
+        <img [src]="qrCodeUrl" alt="User Wallet QR Code" class="h-48 w-48 rounded-lg shadow-2xl">
+        <p class="text-sm text-gray-400">Scan to send USDT to your wallet</p>
+      </div>
+    
+      <!-- Wallet Information Section -->
+      <div class="flex flex-col items-center space-y-8 w-full">
+      
+        <!-- Wallet Address Section -->
+        <div class="flex justify-center items-center space-x-4 w-full px-4">
+          <p class="bg-gray-800 text-gray-100 p-4 rounded-lg w-10/12 text-center truncate overflow-hidden text-lg font-medium">
+            {{ user?.walletAddress }}
+          </p>
+          <button
+            class="bg-gradient-to-r from-indigo-600 to-indigo-800 text-white px-5 py-3 rounded-lg shadow-lg transition duration-300 hover:bg-gradient-to-r hover:from-indigo-700 hover:to-indigo-900"
+            (click)="copyToClipboard(user?.walletAddress, 'Wallet Address copied!')"
+          >
+            Copy
+          </button>
+        </div>
+        
+        <!-- Deposit Confirmation Section -->
+        <div class="flex flex-col items-center space-y-3">
+          <p class="text-sm text-gray-400 text-center">
+            Once you've completed your payment, click the button below to confirm your deposit.
+          </p>
+          <button 
+            class="bg-green-600 text-white px-6 py-3 rounded-lg shadow-md transition duration-300 hover:bg-green-700"
+            (click)="comfirmDeposit(user?.walletAddress)"
+          >
+            Confirm Deposit
+          </button>
+        </div>
+      </div>
+  
+      <!-- Instructions Section -->
+      <div class="bg-gray-800 p-6 rounded-lg space-y-6 w-11/12 mx-auto">
+        <p class="text-sm text-gray-400">
+          1. Copy the address above or scan the QR code and select the BNB Smart Chain (BEP20) network to deposit USDT.
+        </p>
+        <p class="text-sm text-gray-400">
+          2. Please do not recharge other non-BNB Smart Chain (BEP20)-USDT assets. The funds will arrive in your account in about 1 to 3 minutes after recharging.
+        </p>
+        <p class="text-sm text-gray-400">
+          3. If it does not arrive within a reasonable time, refresh the page or contact customer service.
+        </p>
+      </div>
+    </main>
+  </section>
+  

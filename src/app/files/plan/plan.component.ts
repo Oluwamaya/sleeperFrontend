@@ -14,11 +14,12 @@ export class PlanComponent {
   public user : any ={}
 constructor(private userService : UserService ){}
 
-ngOnInit(){
+ ngOnInit(): void {
+    this.userService.verifyToken(); // Verify token when component loads
 
-  this.userService.user$.subscribe((user) => {
-    this.user = user;
-    console.log(this.user);  // Now you have access to the user data
-  });
-}
+    this.userService.user$.subscribe((user) => {
+      this.user = user;
+      console.log(this.user);
+    });
+  }
 }

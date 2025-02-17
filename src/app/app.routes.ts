@@ -6,18 +6,19 @@ import { TaskComponent } from './files/task/task.component';
 import { PlanComponent } from './files/plan/plan.component';
 import { TeamComponent } from './files/team/team.component';
 import { ProfilrComponent } from './files/profilr/profilr.component';
-import { NavbarComponent } from './files/navbar/navbar.component';
+import { DepositComponent } from './files/deposit/deposit.component';
+
 
 export const routes: Routes = [
     {path: "",pathMatch:"full", redirectTo:"/login"},
     {path: "login" , component: LoginComponent},
     {path : "signup" , component : SignupComponent},
-    { path: 'signup/:referralCode', component: SignupComponent },
-    {path : "navbar" , component: NavbarComponent},
+    { path: 'signup/:referralCode', component: SignupComponent }, 
     {path : "dashboard" , component : DashboardComponent},
     {path: "task" , component : TaskComponent},
     {path : "plans" , component: PlanComponent},
     {path : "referral" , component: TeamComponent},
-    {path : "profile" ,  component : ProfilrComponent}
+    {path : "profile" ,  component : ProfilrComponent},
+    {path:  "deposit" , component: DepositComponent}
 
 ];

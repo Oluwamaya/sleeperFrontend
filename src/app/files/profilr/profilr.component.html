@@ -34,25 +34,25 @@
 
     <main class="card my-4 font-mono space-y-3 p-3 mt-[80px]">
         <div class="flex justify-between items-center ">
-          <h5 class="font-medium text-2xl">{{user.username}}</h5>
-          <h5 class="font-medium text-2xl">{{user.plan}}</h5>
+          <h5 class="font-medium text-2xl">{{user?.username}}</h5>
+          <h5 class="font-medium text-2xl">{{user?.plan}}</h5>
         </div>
 
         <div class="mx-auto flex items-center flex-col space-y-3">
           <div class="text-center">
             <h6 class="text-2xl">Total Balance(USDT)</h6>
-            <p class="text-xl">{{ user.totalBalance === 0 ? '00.00' : user.totalBalance }}</p>
+            <p class="text-xl">{{ user?.totalBalance === 0 ? '00.00' : user?.totalBalance }}</p>
            
           </div>
           <div class="text-center">
             <h6 class="text-2xl">Recharge amount(USDT)</h6>
-            <p class="text-xl">{{ user.rechargeBalance === 0 ? '00.00' : user.rechargeBalance }}</p>
+            <p class="text-xl">{{ user?.rechargeBalance === 0 ? '00.00' : user?.rechargeBalance }}</p>
           </div>
         </div>
     </main>
 
     <main class="flex items-center justify-between bg-black text-white py-3 rounded-md ">
-        <div class="flex flex-col w-3/12 items-center">
+        <div class="flex flex-col w-3/12 items-center" routerLink="/deposit">
             <span class="iconify" data-icon="nimbus:money"></span>
             <p>Deposit</p>
         </div>

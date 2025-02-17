@@ -15,21 +15,17 @@ export class ProfilrComponent {
   public user : any = {}
 constructor(private userService : UserService , private route : Router){}
 
-ngOnInit(){
+ngOnInit(): void {
+  this.userService.verifyToken(); // Verify token when component loads
 
   this.userService.user$.subscribe((user) => {
     this.user = user;
-    console.log(this.user);  // Now you have access to the user data
+    console.log(this.user);
   });
 }
 
 logout(): void {
   const isLoggedOut = this.userService.clearUser();
-  
-  if (!isLoggedOut) {
-    alert("An error occurred while logging you out. Please try again.");
-    return;
-  }
 
   alert("You have been successfully logged out. We look forward to seeing you again soon!");
   this.route.navigate(['/login']);

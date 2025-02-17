@@ -14,6 +14,7 @@ interface User {
   totalBalance: number | 0;
   rechargeBalance: number | 0;
   referral: number;
+  walletAddress : string | null
 }
 
 @Component({
@@ -28,50 +29,12 @@ export class DashboardComponent implements OnInit {
   constructor(private http: HttpClient, private route: Router, private userService: UserService) {}
 
   ngOnInit(): void {
-    const token = localStorage.getItem('token');
-    // console.log('Retrieved Token:', token);
+    this.userService.verifyToken(); // Verify token when component loads
 
-    if (token) {
-      this.verifyToken(token);
-    } else {
-      alert("Kindly login again to continue")
-      this.route.navigate(['/login']); // If no token is present, redirect to login
-    }
+    this.userService.user$.subscribe((user) => {
+      this.userInfo = user;
+      console.log(this.userInfo);
+    });
   }
 
-  verifyToken(token: string): void {
-    this.http
-      .get('http://localhost:3210/verifyToken', {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .subscribe(
-        (res: any) => {
-          // console.log(res.user);
-         
-          this.userService.setUser(res.user);  
-          this.userInfo =  res.user
-          console.log(this.userInfo);
-          
-        },
-        (error) => {
-          console.log(error);
-          alert('Token Expired, please log in again');
-          this.route.navigate(['/login']);
-        }
-      );
-  }
-
-  // This method will be used to fetch user data from the service
-  getUserFromService(): User | null {
-    const user = this.userService.getUser();
-    console.log(user);
-
-    return user
-    
-  }
-  
-
-
-  // This can be used for logging out and clearing user data
- 
 }

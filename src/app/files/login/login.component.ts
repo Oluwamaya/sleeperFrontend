@@ -9,6 +9,7 @@ import {
   AbstractControl,
 } from '@angular/forms';
 import { HttpClient, HttpClientModule   } from '@angular/common/http';
+import { UserService } from '../../services/user-service.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,7 @@ export class LoginComponent {
   isEmailLogin = true; // Toggles between Email and Phone Login
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private http: HttpClient , private route : Router) {
+  constructor(private fb: FormBuilder, private http: HttpClient , private route : Router , private userService : UserService) {
     this.loginForm = this.fb.group(
       {
         email: ['', [Validators.email]], // Initially no Validators.required
@@ -65,8 +66,8 @@ export class LoginComponent {
         (res) => {
           console.log(res);
           alert(res.message);
-          localStorage.setItem('token', res.token);
 
+          const saveUser = this.userService.setToken(res.token) 
           this.route.navigate(["/dashboard"])
         },
         (error) => {

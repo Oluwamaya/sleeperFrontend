@@ -139,7 +139,7 @@ export class SignupComponent {
         },
         (error) => {
           console.log(error);
-          alert(error.error);
+          alert(error.error.message || error.error);
         }
       );
     } else {

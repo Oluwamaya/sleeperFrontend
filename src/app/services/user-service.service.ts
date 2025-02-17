@@ -1,55 +1,82 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject, catchError } from 'rxjs';
+import { Router } from '@angular/router';
 
 interface User {
-  id : any ;
+  id: any;
   username: string;
   email: string | null;
   number: string | null;
-  totalBalance: number | 0;
-  rechargeBalance: number | 0;
+  totalBalance: number;
+  rechargeBalance: number;
   referral: number;
-  plan : string
+  plan: string;
+  walletAddress: string;
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private userSubject: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
-  public user$ = this.userSubject.asObservable();  // Observable to subscribe to user data
+  private userSubject = new BehaviorSubject<User | null>(null);
+  private userToken = new BehaviorSubject<string | null>(null);
 
-  constructor() {
-    this.loadUserData();  // Load user data when service is initialized
-  }
+  public user$ = this.userSubject.asObservable();
+  public token$ = this.userToken.asObservable();
 
-  // Method to load user data from localStorage or any other source
-  private loadUserData(): void {
-    const userData = localStorage.getItem('user');
-    if (userData) {
-      this.userSubject.next(JSON.parse(userData));  // Set user data to the BehaviorSubject
-    }
-  }
+  private apiUrl = 'http://localhost:3210/verifyToken'; 
 
-  // Method to set user data
+  constructor(private http: HttpClient, private router: Router) {}
+
   setUser(user: User): void {
-    this.userSubject.next(user);  // Update BehaviorSubject with new user data
-    localStorage.setItem('user', JSON.stringify(user));  // Save user data to localStorage
+    this.userSubject.next(user);
   }
 
-  clearUser(): boolean {
-    try {
-      localStorage.clear(); // or localStorage.clear();
-      return true; // Indicate success
-    } catch (error) {
-      console.error("Error clearing user data:", error);
-      return false; // Indicate failure
-    }
-  }
-  
-
-  // Method to fetch user data (can be used when verifying or updating user info)
   getUser(): User | null {
-    return this.userSubject.value;  // Get the current value of the user data
+    return this.userSubject.value;
+  }
+
+  setToken(token: string): void {
+    this.userToken.next(token);
+    sessionStorage.setItem('userToken', token);
+  }
+
+  getToken(): string | null {
+    return this.userToken.value || sessionStorage.getItem('userToken');
+  }
+
+  verifyToken(): void {
+    const token = this.getToken();
+    if (!token) {
+      this.handleInvalidToken();
+      return;
+    }
+
+    const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+
+    this.http.get<{ user: User }>(this.apiUrl, { headers }).pipe(
+      catchError((error) => {
+        console.error('Token verification failed:', error);
+        this.handleInvalidToken();
+        throw error;
+      })
+    ).subscribe((res) => {
+      if (res.user) {
+        this.setUser(res.user);
+      }
+    });
+  }
+
+  handleInvalidToken(): void {
+    alert('Token not found or expired, login again to continue');
+    this.router.navigate(['/login']);
+  }
+
+  clearUser(): void {
+    this.userSubject.next(null);
+    this.userToken.next(null);
+    sessionStorage.removeItem('userToken');
+    this.router.navigate(['/login']);
   }
 }
